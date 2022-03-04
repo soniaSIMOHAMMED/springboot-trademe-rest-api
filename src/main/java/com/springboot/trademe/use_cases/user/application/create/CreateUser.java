@@ -12,8 +12,9 @@ public class CreateUser implements Command {
     public String email;
     public String password;
     public String trade;
+    public String paymentMethod;
 
-    public CreateUser(String lastname, String firstname, int age, String city, String phoneNumber, String email, String password, String trade) {
+    public CreateUser(String lastname, String firstname, int age, String city, String phoneNumber, String email, String password, String trade, String paymentMethod) {
         this.lastname = lastname;
         this.firstname = firstname;
         this.age = age;
@@ -22,5 +23,6 @@ public class CreateUser implements Command {
         this.email = email;
         this.password = password;
         this.trade = trade;
+        this.paymentMethod = paymentMethod;
     }
 }

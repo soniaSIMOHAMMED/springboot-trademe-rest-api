@@ -12,7 +12,6 @@ import com.springboot.trademe.use_cases.project.domain.Project;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -55,7 +54,6 @@ public class ProjectControllerHandler {
         return ResponseEntity.ok(projectDTO);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(path = "/projects", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> create(@RequestBody ProjectDTO projectDTO) {
         CreateProject createProject = new CreateProject(projectDTO.city, projectDTO.dailyRate, projectDTO.periodOfEngagement, projectDTO.requiredSkills, projectDTO.requiredTrades);
@@ -65,7 +63,6 @@ public class ProjectControllerHandler {
 
 
     // à refaire
-    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(path = "/projects/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> delete(@PathVariable(name="id") Long id){
         Long projectId = commandBus.send(new DeleteProject(id));
@@ -73,7 +70,6 @@ public class ProjectControllerHandler {
     }
 
     // à refaire
-    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping(path = "/projects/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> update(@RequestBody ProjectDTO projectDTO, @PathVariable(name="id") long id){
         UpdateProject updateProject = new UpdateProject(id,projectDTO.city, projectDTO.dailyRate, projectDTO.periodOfEngagement, projectDTO.requiredSkills, projectDTO.requiredTrades);

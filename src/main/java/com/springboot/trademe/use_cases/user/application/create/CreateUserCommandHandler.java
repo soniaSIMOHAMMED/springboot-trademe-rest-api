@@ -6,6 +6,10 @@ import com.springboot.trademe.kernel.EventDispatcher;
 import com.springboot.trademe.use_cases.user.domain.User;
 import com.springboot.trademe.use_cases.user.domain.UserRepository;
 
+import javax.xml.crypto.Data;
+import java.time.Instant;
+import java.time.LocalDate;
+
 public class CreateUserCommandHandler implements CommandHandler<CreateUser, Long> {
 
     private final UserRepository userRepository;
@@ -20,7 +24,7 @@ public class CreateUserCommandHandler implements CommandHandler<CreateUser, Long
     @Override
     public Long handle(CreateUser createUser) {
         final Long userId = userRepository.count() + 1;
-        User user = new User(userId, createUser.lastname, createUser.firstname, createUser.age, createUser.city, createUser.phoneNumber,createUser.email,createUser.password,createUser.trade);
+        User user = new User(userId, createUser.lastname, createUser.firstname, createUser.age, createUser.city, createUser.phoneNumber,createUser.email,createUser.password,createUser.trade,createUser.paymentMethod, LocalDate.now());
         userRepository.save(user);
         eventEventDispatcher.dispatch(new CreateUserEvent(userId));
         return userId;

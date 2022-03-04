@@ -31,30 +31,32 @@ public class UserControllerHandler {
         this.queryBus = queryBus;
     }
 
-    @GetMapping(path = "/users", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    @GetMapping(path = "/users")
     public ResponseEntity<UsersDTO> getAll() {
         final List<User> users = queryBus.send(new RetrieveUsers());
-        UsersDTO usersDTOResult = new UsersDTO(users.stream().map(user -> new UserDTO(user.getUserId(), user.getLastname(), user.getFirstname(), user.getAge(), user.getCity(), user.getPassword(), user.getEmail(), user.getPassword(), user.getTrade())).collect(Collectors.toList()));
+        UsersDTO usersDTOResult = new UsersDTO(users.stream().map(user -> new UserDTO(user.getUserId(), user.getLastname(), user.getFirstname(), user.getAge(), user.getCity(), user.getPassword(), user.getEmail(), user.getPassword(), user.getTrade(), user.getPaymentMethod())).collect(Collectors.toList()));
         return ResponseEntity.ok(usersDTOResult);
     }
 
-    @GetMapping(path = "/users/{city}", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<UsersDTO> getAllByCity(@PathVariable(name="city") String city) {
+
+    @GetMapping(path = "/users/city/{city}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<UsersDTO> getAllByCity(@PathVariable("city") String city) {
         final List<User> users = queryBus.send(new RetrieveUsersByCity(city));
-        UsersDTO usersDTOResult = new UsersDTO(users.stream().map(user -> new UserDTO(user.getUserId(), user.getLastname(), user.getFirstname(), user.getAge(), user.getCity(), user.getPassword(), user.getEmail(), user.getPassword(), user.getTrade())).collect(Collectors.toList()));
+        UsersDTO usersDTOResult = new UsersDTO(users.stream().map(user -> new UserDTO(user.getUserId(), user.getLastname(), user.getFirstname(), user.getAge(), user.getCity(), user.getPassword(), user.getEmail(), user.getPassword(), user.getTrade(), user.getPaymentMethod())).collect(Collectors.toList()));
         return ResponseEntity.ok(usersDTOResult);
     }
 
-    @GetMapping(path = "/users/{id}", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<UserDTO> getProjectById(@PathVariable(name="id") Long id) {
+
+    @GetMapping(path = "/users/{id}", produces =  MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserDTO> getUserById(@PathVariable("id") long id) {
         final User user = queryBus.send(new RetrieveUserById(id));
-        UserDTO userDTO = new UserDTO(id, user.getLastname(), user.getFirstname(), user.getAge(), user.getCity(), user.getPassword(), user.getEmail(), user.getPassword(), user.getTrade());
+        UserDTO userDTO = new UserDTO(id, user.getLastname(), user.getFirstname(), user.getAge(), user.getCity(), user.getPassword(), user.getEmail(), user.getPassword(), user.getTrade(), user.getPaymentMethod());
         return ResponseEntity.ok(userDTO);
     }
 
     @PostMapping(path = "/users", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> create(@RequestBody UserDTO userDTO) {
-        CreateUser createUser = new CreateUser(userDTO.getLastname(), userDTO.getFirstname(), userDTO.getAge(), userDTO.getCity(), userDTO.getPassword(), userDTO.getEmail(), userDTO.getPassword(), userDTO.getTrade());
+        CreateUser createUser = new CreateUser(userDTO.getLastname(), userDTO.getFirstname(), userDTO.getAge(), userDTO.getCity(), userDTO.getPassword(), userDTO.getEmail(), userDTO.getPassword(), userDTO.getTrade(), userDTO.getPaymentMethod());
         Long userId = commandBus.send(createUser);
         return ResponseEntity.created(URI.create("/users/" + userId)).build();
     }
@@ -62,15 +64,15 @@ public class UserControllerHandler {
 
     // à refaire
     @DeleteMapping(path = "/users/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> delete(@PathVariable(name="id") Long id){
+    public ResponseEntity<Void> delete(@PathVariable("id") long id){
         Long userId = commandBus.send(new DeleteUser(id));
-        return new ResponseEntity<>("Project with id " +userId+ " has been successfully deleted.", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     // à refaire
     @PutMapping(path = "/users/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> update(@RequestBody UserDTO userDTO, @PathVariable(name="id") long id){
-        UpdateUser updateUser = new UpdateUser(id,userDTO.getLastname(), userDTO.getFirstname(), userDTO.getAge(), userDTO.getCity(), userDTO.getPassword(), userDTO.getEmail(), userDTO.getPassword(), userDTO.getTrade());
+        UpdateUser updateUser = new UpdateUser(id,userDTO.getLastname(), userDTO.getFirstname(), userDTO.getAge(), userDTO.getCity(), userDTO.getPassword(), userDTO.getEmail(), userDTO.getPassword(), userDTO.getTrade(), userDTO.getPaymentMethod());
         Long userId = commandBus.send(updateUser);
         return new ResponseEntity<>("Project with id " +userId+ " has been successfully updated.", HttpStatus.OK);
 

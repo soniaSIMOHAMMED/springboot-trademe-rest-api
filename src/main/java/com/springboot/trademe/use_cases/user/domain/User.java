@@ -1,9 +1,13 @@
 package com.springboot.trademe.use_cases.user.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.springboot.trademe.use_cases.payment.domain.Payment;
 import lombok.*;
-import org.apache.tomcat.jni.Address;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -31,7 +35,7 @@ public class User {
     @Column(name = "city", nullable = false)
     private String city;
 
-    @Column(name = "phone number", nullable = false)
+    @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
     @Column(name = "email", nullable = false)
@@ -42,6 +46,19 @@ public class User {
 
     @Column(name = "trade", nullable = false)
     private String trade;
+
+/*    @OneToOne
+    private Payment paymentMethod;*/
+
+    @Column(name = "payment_methd", nullable = false)
+    private String paymentMethod;
+
+    @CreatedDate
+    @DateTimeFormat(pattern = "dd")
+    @JsonIgnore
+    private LocalDate createdDate;
+
+
 
 
 

@@ -4,14 +4,10 @@ import com.springboot.trademe.kernel.Command;
 
 public class DeleteUser implements Command {
 
-    public final Long id;
+    public final long id;
 
-    public DeleteUser(Long id) {
+    public DeleteUser(long id) {
         this.id = id;
     }
-
-
-
-
 
 }

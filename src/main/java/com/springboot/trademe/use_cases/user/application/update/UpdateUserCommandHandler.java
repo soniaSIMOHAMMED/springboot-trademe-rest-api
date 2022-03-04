@@ -32,6 +32,7 @@ public class UpdateUserCommandHandler implements CommandHandler<UpdateUser,Long>
         user.setEmail(updateUser.getEmail());
         user.setPassword(updateUser.getPassword());
         user.setTrade(updateUser.getTrade());
+        user.setPaymentMethod(updateUser.getPaymentMethod());
 
         User updatedUser = userRepository.save(user);
 
