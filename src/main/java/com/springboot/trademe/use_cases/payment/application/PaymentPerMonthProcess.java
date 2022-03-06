@@ -12,23 +12,40 @@ import lombok.Getter;
 @Getter
 public final class PaymentPerMonthProcess implements Command {
 
-    public Long id;
     public Double amount = 25.00;
-    public CreditCardPayment creditCardPayment;
-    public PayPalPayment payPalPayment;
+    public Long userId;
+    public String name;
+    public String cardNumber;
+    public String cvv;
+    public String expiryDate;
+    public String email;
+
+    public String password;
 
 
-
-    public PaymentPerMonthProcess(Long id, CreditCardPayment creditCardPayment){
-        this.id = id;
-        this.creditCardPayment = creditCardPayment;
-
+    public PaymentPerMonthProcess(Long userId, String name, String cardNumber, String cvv, String expiryDate) {
+        this.userId = userId;
+        this.name = name;
+        this.cardNumber = cardNumber;
+        this.cvv = cvv;
+        this.expiryDate = expiryDate;
     }
 
-    public PaymentPerMonthProcess(Long id, PayPalPayment payPalPayment){
-        this.id = id;
-        this.payPalPayment = payPalPayment;
+    public PaymentPerMonthProcess(Long userId, String email, String password) {
+        this.userId = userId;
+        this.email = email;
+        this.password = password;
     }
+
+    public static PaymentPerMonthProcess of(Long userId, String name, String cardNumber, String cvv, String expiryDate){
+        return new PaymentPerMonthProcess(userId, name,cardNumber,cvv,expiryDate);
+    }
+
+    public static PaymentPerMonthProcess of(Long userId,String email, String password){
+        return new PaymentPerMonthProcess(userId,email,password);
+    }
+
+
 
 
 

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 
 @Data
 @AllArgsConstructor
@@ -14,8 +15,8 @@ import javax.persistence.*;
 @Table(name = "paypal", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class PayPalPayment extends Payment{
 
-
     @Column(name = "email", nullable = false)
+    @Email
     private String email;
 
     @Column(name = "password", nullable = false)

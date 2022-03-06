@@ -11,9 +11,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "creditCard", uniqueConstraints = @UniqueConstraint(columnNames = "cardNumber"))
-public final class CreditCardPayment extends Payment{
-
+@Table(name = "creditCard", uniqueConstraints = @UniqueConstraint(columnNames = {"cardNumber","name}"}))
+public class CreditCardPayment extends Payment{
 
     private String name;
     private String cardNumber;

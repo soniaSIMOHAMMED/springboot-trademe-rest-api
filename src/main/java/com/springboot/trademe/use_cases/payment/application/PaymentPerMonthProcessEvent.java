@@ -9,4 +9,8 @@ public final class PaymentPerMonthProcessEvent implements ApplicationEvent {
         this.userId = userId;
     }
 
+    public static PaymentPerMonthProcessEvent of(Long userId){
+        return new PaymentPerMonthProcessEvent(userId);
+    }
+
 }

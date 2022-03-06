@@ -6,7 +6,7 @@ import com.springboot.trademe.kernel.EventDispatcher;
 import com.springboot.trademe.use_cases.project.domain.Project;
 import com.springboot.trademe.use_cases.project.domain.ProjectRepository;
 
-public class CreateProjectCommandHandler implements CommandHandler<CreateProject, Long> {
+public final class CreateProjectCommandHandler implements CommandHandler<CreateProject, Long> {
 
     private final ProjectRepository projectRepository;
     private final EventDispatcher<Event> eventEventDispatcher;
@@ -14,6 +14,10 @@ public class CreateProjectCommandHandler implements CommandHandler<CreateProject
     public CreateProjectCommandHandler(ProjectRepository projectRepository, EventDispatcher<Event> eventEventDispatcher) {
         this.projectRepository = projectRepository;
         this.eventEventDispatcher = eventEventDispatcher;
+    }
+
+    public static CreateProjectCommandHandler of(ProjectRepository projectRepository, EventDispatcher<Event> eventEventDispatcher){
+        return new CreateProjectCommandHandler(projectRepository, eventEventDispatcher);
     }
 
 

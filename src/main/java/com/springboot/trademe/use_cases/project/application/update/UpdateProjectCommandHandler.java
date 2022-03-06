@@ -7,7 +7,7 @@ import com.springboot.trademe.kernel.exception.ResourceNotFoundException;
 import com.springboot.trademe.use_cases.project.domain.Project;
 import com.springboot.trademe.use_cases.project.domain.ProjectRepository;
 
-public class UpdateProjectCommandHandler implements CommandHandler<UpdateProject,Long> {
+public class UpdateProjectCommandHandler implements CommandHandler<UpdateProject,Void> {
 
     private final ProjectRepository projectRepository;
     private final EventDispatcher<Event> eventEventDispatcher;
@@ -18,7 +18,7 @@ public class UpdateProjectCommandHandler implements CommandHandler<UpdateProject
     }
 
     @Override
-    public Long handle(UpdateProject updateProject) {
+    public Void handle(UpdateProject updateProject) {
 
         Project project = this.projectRepository.findById(updateProject.id).orElseThrow(() -> new ResourceNotFoundException("Project","id", updateProject.id));
 
@@ -29,7 +29,7 @@ public class UpdateProjectCommandHandler implements CommandHandler<UpdateProject
         project.setRequiredTrades(updateProject.getRequiredTrades());
         Project updatedProject = projectRepository.save(project);
 
-        return updateProject.id;
+        return null;
     }
 
 

@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = {"email","firstname"}))
 public class User {
 
     @Id
@@ -57,6 +57,10 @@ public class User {
     @DateTimeFormat(pattern = "dd")
     @JsonIgnore
     private LocalDate createdDate;
+
+
+
+
 
 
 
