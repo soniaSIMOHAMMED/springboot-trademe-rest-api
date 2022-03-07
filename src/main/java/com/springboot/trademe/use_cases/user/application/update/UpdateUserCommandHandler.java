@@ -22,7 +22,7 @@ public class UpdateUserCommandHandler implements CommandHandler<UpdateUser,Long>
     @Override
     public Long handle(UpdateUser updateUser) {
 
-        User user = this.userRepository.findById(updateUser.id).orElseThrow(() -> new ResourceNotFoundException("User","id", updateUser.id));
+        User user = this.userRepository.findById(updateUser.id).orElseThrow(() -> ResourceNotFoundException.of("User","id", updateUser.id));
 
         user.setLastname(updateUser.getLastname());
         user.setFirstname(updateUser.getFirstname());

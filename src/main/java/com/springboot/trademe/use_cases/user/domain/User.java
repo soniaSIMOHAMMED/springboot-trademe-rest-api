@@ -1,7 +1,6 @@
 package com.springboot.trademe.use_cases.user.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.springboot.trademe.use_cases.payment.domain.Payment;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;

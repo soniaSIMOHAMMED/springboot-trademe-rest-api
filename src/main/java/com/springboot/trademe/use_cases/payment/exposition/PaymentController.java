@@ -32,7 +32,7 @@ public class PaymentController {
         return ResponseEntity.created(URI.create("/creditcard/" + name)).build();
     }
 
-    @PostMapping(path = "/paypal/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/payPal/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> makePayment(@Valid @RequestBody PayPalDTO payPalDTO, @PathVariable("id") Long userId) {
         PaymentPerMonthProcess paymentPerMonthProcess = PaymentPerMonthProcess.of(userId,payPalDTO.getEmail(),payPalDTO.getPassword());
         String name = commandBus.send(paymentPerMonthProcess);

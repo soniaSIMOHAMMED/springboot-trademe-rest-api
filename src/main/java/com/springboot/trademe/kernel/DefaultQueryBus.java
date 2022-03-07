@@ -2,12 +2,14 @@ package com.springboot.trademe.kernel;
 
 import java.util.Map;
 
-public class DefaultQueryBus implements QueryBus {
+public final class DefaultQueryBus implements QueryBus {
     private final Map<Class<? extends Query>, QueryHandler> dataMap;
 
     public DefaultQueryBus(Map<Class<? extends Query>, QueryHandler> dataMap) {
         this.dataMap = dataMap;
     }
+
+    public static DefaultQueryBus of(Map<Class<? extends Query>, QueryHandler> dataMap){return new DefaultQueryBus(dataMap);}
 
     @Override
     public <Q extends Query, R> R send(Q query) {

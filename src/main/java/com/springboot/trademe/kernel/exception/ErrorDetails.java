@@ -2,7 +2,7 @@ package com.springboot.trademe.kernel.exception;
 
 import java.util.Date;
 
-public class ErrorDetails {
+public final class ErrorDetails {
     private Date timestamp;
     private String message;
     private String details;
@@ -11,6 +11,10 @@ public class ErrorDetails {
         this.timestamp = timestamp;
         this.message = message;
         this.details = details;
+    }
+
+    public static ErrorDetails of(Date timestamp, String message, String details){
+        return new ErrorDetails(timestamp,message,details);
     }
 
     public Date getTimestamp() {

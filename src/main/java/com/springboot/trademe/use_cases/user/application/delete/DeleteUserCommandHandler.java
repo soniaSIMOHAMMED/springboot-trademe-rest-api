@@ -19,7 +19,7 @@ public class DeleteUserCommandHandler implements CommandHandler<DeleteUser, Void
 
     @Override
     public Void handle(DeleteUser deleteUser) {
-        User user = this.userRepository.findById(deleteUser.id).orElseThrow(() -> new ResourceNotFoundException("User","id", deleteUser.id));
+        User user = this.userRepository.findById(deleteUser.id).orElseThrow(() -> ResourceNotFoundException.of("User","id", deleteUser.id));
         this.userRepository.delete(user);
         eventEventDispatcher.dispatch(new DeleteUserEvent(deleteUser.id));
         return null;

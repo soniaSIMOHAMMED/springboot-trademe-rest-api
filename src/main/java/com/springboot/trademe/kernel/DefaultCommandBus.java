@@ -1,15 +1,16 @@
 package com.springboot.trademe.kernel;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
 
-public class DefaultCommandBus implements CommandBus {
+public final class DefaultCommandBus implements CommandBus {
     private final Map<Class<? extends Command>, CommandHandler> dataMap;
 
     public DefaultCommandBus(Map<Class<? extends Command>, CommandHandler> dataMap) {
         this.dataMap = dataMap;
     }
+
+    public static DefaultCommandBus of(Map<Class<? extends Command>, CommandHandler> dataMap){return new DefaultCommandBus(dataMap);}
 
     @Override
     public <C extends Command, R> R send(C command) {

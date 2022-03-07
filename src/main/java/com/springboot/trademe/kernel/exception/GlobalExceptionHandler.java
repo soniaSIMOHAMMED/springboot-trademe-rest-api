@@ -21,7 +21,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorDetails> handleResourceNotFoundException(ResourceNotFoundException exception,
                                                                         WebRequest webRequest){
-        ErrorDetails errorDetails = new ErrorDetails(new Date(), exception.getMessage(),
+        ErrorDetails errorDetails = ErrorDetails.of(new Date(), exception.getMessage(),
                 webRequest.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
@@ -29,7 +29,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(BadRequestApiException.class)
     public ResponseEntity<ErrorDetails> handleBadRequestApiException(BadRequestApiException exception,
                                                                WebRequest webRequest){
-        ErrorDetails errorDetails = new ErrorDetails(new Date(), exception.getMessage(),
+        ErrorDetails errorDetails = ErrorDetails.of(new Date(), exception.getMessage(),
                 webRequest.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
@@ -38,7 +38,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDetails> handleGlobalException(Exception exception,
                                                               WebRequest webRequest){
-        ErrorDetails errorDetails = new ErrorDetails(new Date(), exception.getMessage(),
+        ErrorDetails errorDetails = ErrorDetails.of(new Date(), exception.getMessage(),
                 webRequest.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }

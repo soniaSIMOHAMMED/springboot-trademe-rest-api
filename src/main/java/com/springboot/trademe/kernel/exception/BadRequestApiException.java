@@ -2,7 +2,7 @@ package com.springboot.trademe.kernel.exception;
 
 import org.springframework.http.HttpStatus;
 
-public class BadRequestApiException extends RuntimeException {
+public final class BadRequestApiException extends RuntimeException {
     private HttpStatus status;
     private String message;
 
@@ -15,6 +15,10 @@ public class BadRequestApiException extends RuntimeException {
         super(message);
         this.status = status;
         this.message = message1;
+    }
+
+    public static BadRequestApiException of(String message, HttpStatus status, String message1){
+        return new BadRequestApiException(message,status,message1);
     }
 
     public HttpStatus getStatus() {

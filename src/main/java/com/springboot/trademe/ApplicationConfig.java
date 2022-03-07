@@ -69,8 +69,6 @@ public class ApplicationConfig {
 
 
 
-
-
         return new DefaultEventDispatcher(listenerMap);
     }
 
@@ -118,7 +116,7 @@ public class ApplicationConfig {
         commandHandlerMap.put(UpdateProject.class, new UpdateProjectCommandHandler(projectRepository, eventEventDispatcher()));
 
 
-        return new DefaultCommandBus(commandHandlerMap);
+        return DefaultCommandBus.of(commandHandlerMap);
     }
 
     @Bean
@@ -133,7 +131,7 @@ public class ApplicationConfig {
         queryHandlerMap.put(RetrieveProjects.class, new RetrieveProjectsHandler(projectRepository));
         queryHandlerMap.put(RetrieveProjectById.class, new RetrieveProjectByIdHandler(projectRepository));
 
-        return new DefaultQueryBus(queryHandlerMap);
+        return DefaultQueryBus.of(queryHandlerMap);
     }
 
     @Bean

@@ -2,7 +2,7 @@ package com.springboot.trademe.use_cases.project.application.create;
 
 import com.springboot.trademe.kernel.ApplicationEvent;
 
-public final class CreateProjectEvent implements ApplicationEvent {
+public class CreateProjectEvent implements ApplicationEvent {
 
     private final Long projectId;
 

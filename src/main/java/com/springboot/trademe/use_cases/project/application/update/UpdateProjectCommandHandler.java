@@ -20,7 +20,7 @@ public class UpdateProjectCommandHandler implements CommandHandler<UpdateProject
     @Override
     public Void handle(UpdateProject updateProject) {
 
-        Project project = this.projectRepository.findById(updateProject.id).orElseThrow(() -> new ResourceNotFoundException("Project","id", updateProject.id));
+        Project project = this.projectRepository.findById(updateProject.id).orElseThrow(() -> ResourceNotFoundException.of("Project","id", updateProject.id));
 
         project.setCity(updateProject.getCity());
         project.setDailyRate(updateProject.getDailyRate());
